@@ -7,7 +7,7 @@
 
   onMount(async () => {
     try {
-      const res = await fetch('${API}/api/books');
+      const res = await fetch(`${API}/api/books`);
       if (!res.ok) {
         throw new Error('Errore nel recupero dei libri');
       }

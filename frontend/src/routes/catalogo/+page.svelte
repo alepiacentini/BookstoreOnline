@@ -3,10 +3,11 @@
   import BookCard from '$lib/BookCard.svelte';
   let books = [];
   let error = '';
+  export const API = import.meta.env.API_URL;
 
   onMount(async () => {
     try {
-      const res = await fetch('http://localhost:3002/api/books');
+      const res = await fetch('${API}/api/books');
       if (!res.ok) {
         throw new Error('Errore nel recupero dei libri');
       }

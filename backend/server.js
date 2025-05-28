@@ -14,7 +14,7 @@ const app = express();
 connectDB();
 
 const corsOptions = {
-  origin: 'https://bookstoreonline1.vercel.app/',
+  origin: 'https://bookstoreonline1.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true

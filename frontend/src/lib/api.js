@@ -1,12 +1,13 @@
 // src/lib/api.js
 export const BASE_URL = 'http://localhost:3002/api';
+export const API = import.meta.env.API_URL;
 
 // =====================
 // Autenticazione
 // =====================
 
 export async function login({ email, password }) {
-  const res = await fetch(`${BASE_URL}/auth/login`, {
+  const res = await fetch(`${API}/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
@@ -22,7 +23,7 @@ export async function login({ email, password }) {
 }
 
 export async function register({ username, email, password, isAdmin = false }) {
-  const res = await fetch(`${BASE_URL}/auth/register`, {
+  const res = await fetch(`${API}/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, email, password, isAdmin }),
@@ -40,7 +41,7 @@ export async function register({ username, email, password, isAdmin = false }) {
 // RECUPERA TUTTI I LIBRI
 export async function getLibri() {
   try {
-    const res = await fetch('http://localhost:3002/api/books');
+    const res = await fetch(`${API}/api/books`);
     if (!res.ok) {
       throw new Error(`Errore nel fetch: ${res.status}`);
     }
@@ -54,7 +55,7 @@ export async function getLibri() {
 
 // Solo Admin - AGGIUNTA NUOVO LIBRO
 export async function addLibro(libro) {
-  const res = await fetch('http://localhost:3002/api/books', {
+  const res = await fetch(`${API}/api/books`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -72,7 +73,7 @@ export async function addLibro(libro) {
 
 // Solo Admin - RIMOZIONE LIBRO
 export async function deleteBook(bookId, token) {
-  const res = await fetch(`${BASE_URL}/books/${bookId}`, {
+  const res = await fetch(`${API}/books/${bookId}`, {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -85,7 +86,7 @@ export async function deleteBook(bookId, token) {
 // Solo Admin - RECUPERA LIBRO PER ID
 export async function getLibroById(id) {
   const token = localStorage.getItem('token');
-  const res = await fetch(`${BASE_URL}/books/${id}`, {
+  const res = await fetch(`${API}/books/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -106,7 +107,7 @@ export async function getLibroById(id) {
 // Solo Admin - AGGIORNAMENTO LIBRO
 export async function updateBook(id, libroAggiornato) {
   const token = localStorage.getItem('token'); 
-  const res = await fetch(`${BASE_URL}/books/${id}`, {
+  const res = await fetch(`${API}/books/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -124,7 +125,7 @@ export async function updateBook(id, libroAggiornato) {
 // =====================
 
 export async function getCart(token) {
-  const res = await fetch(`${BASE_URL}/cart`, {
+  const res = await fetch(`${API}/cart`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -134,7 +135,7 @@ export async function getCart(token) {
 }
 
 export async function addToCart(bookId, token) {
-  const res = await fetch(`${BASE_URL}/cart`, {
+  const res = await fetch(`${API}/cart`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -149,7 +150,7 @@ export async function addToCart(bookId, token) {
 }
 
 export async function removeFromCart(bookId, token) {
-  const res = await fetch(`${BASE_URL}/cart/${bookId}`, {
+  const res = await fetch(`${API}/cart/${bookId}`, {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -160,7 +161,7 @@ export async function removeFromCart(bookId, token) {
 }
 
 export async function checkout(token) {
-  const res = await fetch(`${BASE_URL}/cart/checkout`, {
+  const res = await fetch(`${API}/cart/checkout`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
   });

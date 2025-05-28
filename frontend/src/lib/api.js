@@ -41,7 +41,7 @@ export async function register({ username, email, password, isAdmin = false }) {
 // RECUPERA TUTTI I LIBRI
 export async function getLibri() {
   try {
-    const res = await fetch(`${API}/api/books`);
+    const res = await fetch(`${API}/books`);
     if (!res.ok) {
       throw new Error(`Errore nel fetch: ${res.status}`);
     }
@@ -55,7 +55,7 @@ export async function getLibri() {
 
 // Solo Admin - AGGIUNTA NUOVO LIBRO
 export async function addLibro(libro) {
-  const res = await fetch(`${API}/api/books`, {
+  const res = await fetch(`${API}/books`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

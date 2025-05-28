@@ -13,8 +13,14 @@ const app = express();
 // Connect to Database
 connectDB();
 
+const corsOptions = {
+  origin: 'https://bookstoreonline1.vercel.app/',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.json());
 
